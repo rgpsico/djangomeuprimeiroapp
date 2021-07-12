@@ -1,1 +1,1 @@
-web gunicorn crud-django-wpensar.wsgi
+web:gunicorn crud-django-wpensar.wsgi
