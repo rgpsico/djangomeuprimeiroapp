@@ -1,7 +1,5 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
-from django.db.models import Sum
 from app.models import Carros, Produtos, Pedidos ,venda
 from app.forms import CarrosForm, ProdutosForm
 from django.db.models import Sum
