@@ -80,7 +80,7 @@
         <form action="/pagar/" method="POST">
             {% csrf_token %}
           <input type="hidden" name="pedidos">
-          <input type="hidden" id="total" name="total" value="{{ total.total }}">
+          <input type="hidden" id="total" name="total" value="">
         <td colspan="3"><button type="submit" class="btn-info">Pagar</button></td>
         </tr>
         </form>

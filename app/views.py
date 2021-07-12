@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from app.models import Carros, Produtos, Pedidos ,venda
 from app.forms import CarrosForm, ProdutosForm
-from django.db.models import Sum
+
 
 from django.contrib.auth.models import User
 # Create your views here.
@@ -14,7 +14,7 @@ def home(request):
         data['db'] = Produtos.objects.filter(name__contains=buscar)
         data['pedido'] = Pedidos.objects.all()
     else:
-        data['total'] = Pedidos.objects.all().aggregate(total=Sum('valor'))
+
         data['db'] = Produtos.objects.all()
         data['pedido'] = Pedidos.objects.all()
 
