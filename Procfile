@@ -1,1 +1,1 @@
-web: gunicorn crudcompython.wsgi
+web: gunicorn app.wsgi
