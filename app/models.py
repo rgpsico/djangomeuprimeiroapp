@@ -15,7 +15,7 @@ class venda(models.Model):
 
 class Pedidos(models.Model):
     item = models.CharField(max_length=100, null=True, blank=True)
-    valor = models.IntegerField()
+    valor = models.IntegerField(null=True)
     quantidade = models.CharField(max_length=100, null=True, blank=True)
     usuario = models.CharField(max_length=100, null=True, blank=True)
 
