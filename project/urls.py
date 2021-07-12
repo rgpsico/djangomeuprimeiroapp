@@ -9,7 +9,6 @@ urlpatterns = [
     path('cadastro/', cadastro, name="cadastro"),
     path('login/',login,name="login"),
     path('logout/',logout, name="logout"),
-
     path('pagar/', pagar, name="pagar"),
     path('addcart/', addcart, name="addcart"),
     path('DelCart/<int:pk>', deleteCard, name="DelCart"),
