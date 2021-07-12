@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Crud</title>
+</head>
+<body>
+<div class="col-8 m-auto pt-2 pb-2">
+    <h1>Crud com python</h1>
+</div>
+
+<div class="col-8 m-auto pt-2 pb-2">
+    <a href="/form" class="btn btn-success">Adicionar</a>
+</div>
+<div class="col-8 m-auto pt-2 pb-2"></div>
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Modelo</th>
+        <th>Marca</th>
+        <th>Ano</th>
+          <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for dbs in db %}
+             <form action="/AddCart/" method="POST">
+                 {% csrf_token %}
+      <tr>
+          <td><input type="text" name="name" value="{{ dbs.modelo }}"></td>
+          <td><input type="text" name="image" value="{{ dbs.marca }}"></td>
+          <td><input type="text" name="price" value="10.00"></td>
+       <td><input type="submit" value="add_cart"></td>
+      </tr>
+               </form>
+        {% endfor %}
+
+    </tbody>
+  </table>
+
+    <br>
+    <br>
+    <br>
+<h2>Carrinho</h2>
+<table class="table">
+    <thead>
+      <tr>
+        <th>Modelo</th>
+        <th>Marca</th>
+        <th>Ano</th>
+          <th>Ações</th>
+      </tr>
+
+     {% for dbs in produtos %}
+
+
+      <tr>
+       <form action="/AddCart/" method="POST">
+            {% csrf_token %}
+          <td><input type="text" name="name" value="{{ dbs.name }}"></td>
+          <td><input type="text" name="image" value="{{ dbs.image }}"></td>
+          <td><input type="text" name="price" value="10.00"></td>
+       <td><input type="submit" value="add_cart">
+                          </form>
+
+               <a href="/delProd/{{ dbs.id }}" class="btn btn-danger">Delete</a>
+       </td>
+      </tr>
+
+
+        {% endfor %}
+
+{{ total }}
+
+
+    </thead>
+    <tbody>
+
+
+
+
+
+
+    </tbody>
+  </table>
+
+
+</div>
+</body>
+</html>

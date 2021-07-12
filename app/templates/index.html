@@ -1,0 +1,100 @@
+
+{% load mathfilters%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho de compra </title>
+</head>
+<body>
+<div class="container">
+<nav>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/cadastro">Cadastrar</a></li>
+    </ul>
+</nav>
+</div>
+<h3 style="text-align: center;">Carrinho de compras  {{ teste.teste }}</h3>
+
+<div class="container">
+<form action="" method="GET">
+    <label for="">Buscar:<input type="text" name="buscar" class="form-control" placeholder="Buscar"></label>
+    <input type="submit" class="btn btn-success" value="buscar">
+
+</form>
+    {% for dbs in db %}
+<div class="col-md-4 my-5" style="margin-top:30px;">
+    <form method="POST" action="/addcart/" >
+            {% csrf_token %}
+    <div style="border:1px solid #333; background-color:#f1f1f1;border-radius:5px; padding:10px;">
+    <img src="https://images-na.ssl-images-amazon.com/images/I/61p5noePbgS.__AC_SX300_SY300_QL70_ML2_.jpg" alt="" width="200px">
+    </div>
+    <h4 class="text-info"></h4>
+    <h4 class="text-danger">{{ dbs.name }}</h4>
+    <h4 class="text-danger">{{ dbs.price }}</h4>
+    <input type="text" name="quantidade" class="form-control" value="1">
+    <input type="hidden" name="item"   value="{{ dbs.name }}">
+    <input type="hidden" name="valor"  value="{{ dbs.price }}">
+    <input type="hidden" name="usuario"  value="9">
+    <input type="submit"     value="enviar">
+    </form>
+</div>
+    {% endfor %}
+
+
+<div style="clear:both"></div>
+<br>
+<h3>Meu Carrinho</h3>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <th>Item name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Action</th>
+        </tr>
+    {% for pedi in pedido %}
+
+        <tr>
+            <td>{{  pedi.item}}</td>
+            <td>{{  pedi.quantidade}}</td>
+            <td>{{  pedi.valor}}</td>
+            <td>{{ pedi.valor|mul:pedi.quantidade }}</td>
+            <td><a href="/DelCart/{{ pedi.id}}" class="btn btn-danger">Delete</a></td>
+        </tr>
+    {% endfor %}
+        <tr>
+        <td colspan="3">Total</td>
+        <td colspan="3">{{ total.total }}</td>
+        </tr>
+        <tr>
+        <td colspan="3">Pagar</td>
+        <form action="/pagar/" method="POST">
+            {% csrf_token %}
+          <input type="hidden" name="pedidos">
+          <input type="hidden" id="total" name="total" value="{{ total.total }}">
+        <td colspan="3"><button type="submit" class="btn-info">Pagar</button></td>
+        </tr>
+        </form>
+
+    </table>
+</div>
+
+
+
+
+
+
+</div>
+
+
+</body>
+</html>
