@@ -24,16 +24,16 @@
 
 
  <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
+          <li><a href="/">Home</a></li>
         {% if user.is_authenticated %}
             <li><a href="../cadastrarprod/">Cadastrar Produto</a></li>
             <li><a href="../listarprodutos/">Meus Produto</a></li>
-            <li><a href="../pedidos/">Pedidos</a></li>
-            <li><a href="../logout/">Sair</a></li>
-            <li><a href="../todasasvendas/">Vendas</a></li>
+            <li><a href="../pedidos/">Minhas Compras</a></li>
+            <li><a href="../todasasvendas/">Todas as vendas do Sistema</a></li>
+             <li><a href="../logout/">Sair</a></li>
         {% else %}
         <li><a href="/login">Login</a></li>
-        <li><a href="/cadastro">Cadastrar</a></li>
+        <li><a href="/cadastro">Cadastrar Usuário</a></li>
         {% endif%}
 
     </ul>

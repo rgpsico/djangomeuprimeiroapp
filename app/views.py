@@ -5,6 +5,7 @@ from app.forms import CarrosForm, ProdutosForm
 from django.db.models import Sum
 from django.contrib import auth , messages
 from django.contrib.auth.models import User
+from django.template import RequestContext
 
 
 # Create your views here.
@@ -211,20 +212,23 @@ def logar(request):
      if request.method == 'POST':
         email = request.POST['email']
         senha = request.POST['senha']
-        if email == "":
-            messages.error(request, 'email  vazio ou invalido')
-
-
+        if not email or not senha:
+            messages.error(
+                request,
+                'Usuário ou senha inválidos.'
+            )
+            return redirect('login')
         if User.objects.filter(email=email).exists():
             nome = User.objects.filter(email=email).values_list('username',flat=True).get()
             user = auth.authenticate(request, username=nome, password=senha)
-            if user is not None:
-                auth.login(request, user)
-                messages.success(request, 'login realizado com successo')
-                return redirect('listarprodutos')
-            else:
-                messages.error(request, 'Não logouo')
-                return redirect('login')
+        if user is not None:
+            auth.login(request, user)
+            messages.success(request, 'login realizado com successo')
+            return redirect('listarprodutos')
+        else:
+            messages.error(request, 'Não Logou')
+            return render(request,'login')
+
 
 
 
@@ -256,4 +260,6 @@ def insertuser(request):
     user = User.objects.create_user(username=nome, email=email, password=senha)
     user.save()
     messages.success(request, 'usuario cadastrado com sucesso')
-    return render(request, 'cadastro.html')
+    auth.login(request, user)
+    return redirect('listarprodutos')
+
