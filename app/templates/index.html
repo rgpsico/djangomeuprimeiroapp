@@ -2,7 +2,6 @@
 {%  include 'includes/navi.html'%}
 <div class="container">
     {%  include 'includes/_alertas.html'%}
-</div>
 <h3 style="text-align: center;">Carrinho de compras</h3>
 
 <div class="container">
@@ -21,8 +20,9 @@
     </div>
     <h4 class="text-info"></h4>
     <h4 class="text-infor">{{ dbs.name }}</h4>
-    <h4 class="text-danger">{{ dbs.price }}</h4>
-    <input type="text" name="quantidade" class="form-control" value="1">
+    <h4 class="text-danger">R$ {{ dbs.price }}</h4>
+        <br>
+        <label for="">Quantidade<input type="text"   name="quantidade" class="form-control" value="1"></label>
     <input type="hidden" name="item"   value="{{ dbs.name }}">
     <input type="hidden" name="valor"  value="{{ dbs.price }}">
     <input type="hidden" name="usuario"  value="9">

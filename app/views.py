@@ -6,7 +6,10 @@ from django.db.models import Sum
 from django.contrib import auth , messages
 from django.contrib.auth.models import User
 
+
 # Create your views here.
+
+
 
 def home(request):
     data = {}
@@ -24,8 +27,6 @@ def home(request):
     else:
         data['db'] = Produtos.objects.all()
 
-
-
         return render(request, "index.html", data)
 
 
@@ -40,9 +41,11 @@ def addcart(request):
         messages.success(request, 'O Produto '+item+' adicionado no seu carrinho')
         return redirect('home')
     else:
-        request.session['carrinho'] = {'item':item, 'valor':valor, 'quantidade':quantidade}
-        carrinho = request.session['carrinho']
-
+        carrinho = request.session.get('carrinho')
+        if not carrinho:
+           request.session.carrinho= {'item':item, 'valor':valor, 'quantidade':quantidade}
+           carrinho = request.session.save()
+           messages.error(request, '<b>Atenção</b> Você precisa está autenticado para adicionar qualquer produto,Desculpa não sei usar session ainda ')
         return redirect('home')
 
 def deleteCard(request, pk):
@@ -69,11 +72,13 @@ def listarprodutos(request):
     data = {}
     id = request.user.id
     buscar = request.GET.get('buscar')
+
     if buscar:
         data['db'] = Produtos.objects.filter(name__contains=buscar)
     if id:
         data['db'] = Produtos.objects.filter(Pessoa=id)
     else:
+        messages.success(request, 'Login realizado com successo')
         data['db'] = Produtos.objects.all()
     return render(request, "listProd.html", data)
 
@@ -83,16 +88,25 @@ def deleteProd(request, pk):
     db.delete()
     return redirect('listarprodutos')
 
-
+def pedidos(request):
+    data = {}
+    id = request.user.id
+    buscar = request.GET.get('buscar')
+    if buscar:
+        data['db'] = venda.objects.filter(id=buscar)
+    else:
+        data['db'] = venda.objects.filter(Pessoa_id=id)
+    return render(request, "Pedidos/listPedidos.html", data)
 
 def pagar(request):
     id = request.user.id
     total = request.POST['total']
     if request.user.is_authenticated:
         data = {}
-        teste = data['db'] = Pedidos.objects.filter(Pessoa=id)
-        id_venda = venda.objects.create(total=total)
-    for variacao in teste:
+        pedidos = data['db'] = Pedidos.objects.filter(Pessoa=id)
+        id_venda = venda.objects.create(total=total,Pessoa_id=id)
+        messages.success(request, 'Venda realizada Com sucesso , Muito Obrigado e volte sempre')
+    for variacao in pedidos:
         itens_vendido.objects.create(Pessoa_id=id,item=variacao.item,valor=variacao.valor,quantidade=variacao.quantidade,venda_id=id_venda.id)
         Pedidos.objects.filter(Pessoa_id=id).delete()
     else:
@@ -206,7 +220,7 @@ def logar(request):
             user = auth.authenticate(request, username=nome, password=senha)
             if user is not None:
                 auth.login(request, user)
-                messages.error(request, 'login realizado com successo')
+                messages.success(request, 'login realizado com successo')
                 return redirect('listarprodutos')
             else:
                 messages.error(request, 'Não logouo')

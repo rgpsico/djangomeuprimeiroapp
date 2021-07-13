@@ -13,6 +13,7 @@ class Produtos(models.Model):
     price = models.CharField(max_length=100)
 
 class venda(models.Model):
+    Pessoa = models.ForeignKey(User, on_delete=models.CASCADE)
     total = models.FloatField()
 
 class Pedidos(models.Model):

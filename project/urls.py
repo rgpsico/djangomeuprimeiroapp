@@ -4,7 +4,7 @@ from django.urls import path
 from app.views import home, form , create ,view ,Edit, update , delete ,\
     login ,logout,cadastro,addcart,deleteCard, \
     pagar, cadastrarProd,insertProd,listarprodutos , deleteProd ,\
-    logar,insertuser, todasasvendas ,detalhesvedas, checkout
+    logar,insertuser, todasasvendas ,detalhesvedas, checkout, pedidos
 from app.models import Carros
 
 urlpatterns = [
@@ -27,6 +27,9 @@ urlpatterns = [
     path('todasasvendas/', todasasvendas, name="todasasvendas"),
     path('detalhesvedas/<int:pk>', detalhesvedas, name="detalhesvedas"),
     path('checkout/', checkout, name="checkout"),
+
+    path('pedidos/', pedidos, name="pedidos"),
+
 
     path('pagar/', pagar, name="pagar"),
     path('addcart/', addcart, name="addcart"),

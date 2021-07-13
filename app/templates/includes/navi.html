@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrinho de compra </title>
+    <title>Programaninha Básico</title>
 </head>
 <body>
 <div class="container">
@@ -15,18 +15,22 @@
  <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
+        {% if user.is_authenticated %}
       <a class="navbar-brand" href="#">ola {{ user.username }} </a>
+         {% else %}
+      <a class="navbar-brand" href="#">Seja bem vindo</a>
+         {% endif%}
     </div>
+
+
  <ul class="nav navbar-nav">
-        <li><a href="/">Home</a></li>
-
-
+            <li><a href="/">Home</a></li>
         {% if user.is_authenticated %}
             <li><a href="../cadastrarprod/">Cadastrar Produto</a></li>
             <li><a href="../listarprodutos/">Meus Produto</a></li>
-            <li><a href="../todasasvendas/">Vendas</a></li>
+            <li><a href="../pedidos/">Pedidos</a></li>
             <li><a href="../logout/">Sair</a></li>
-
+            <li><a href="../todasasvendas/">Vendas</a></li>
         {% else %}
         <li><a href="/login">Login</a></li>
         <li><a href="/cadastro">Cadastrar</a></li>
