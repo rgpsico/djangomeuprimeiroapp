@@ -1,0 +1,54 @@
+
+    {%  include 'includes/navi.html'%}
+</div>
+<h3 style="text-align: center;">Detalhes da venda</h3>
+
+<div class="container">
+<form action="" method="GET">
+    <label for="">Buscar:<input type="text" name="buscar" class="form-control" placeholder="Buscar"></label>
+    <input type="submit" class="btn btn-success" value="buscar">
+
+</form>
+
+
+<div style="clear:both"></div>
+<br>
+<h3>Todos os Produtos vendidos</h3>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr bgcolor="#faebd7">
+            <th>Cod</th>
+            <th>item</th>
+            <th>quantidade</th>
+            <th>valor</th>
+
+        </tr>
+       {% for dbs in db %}
+        <tr>
+            <td>{{ dbs.id}}</td>
+            <td>{{ dbs.item}}</td>
+            <td>{{ dbs.quantidade}}</td>
+            <td>{{ dbs.valor}}</td>
+
+        </tr>
+       {% endfor %}
+     <tr>
+        <td colspan="3" bgcolor="#faebd7">Total</td>
+        <td colspan="3" bgcolor="#faebd7">{{ total.total }}</td>
+        </tr>
+
+
+
+    </table>
+</div>
+
+
+
+
+
+
+</div>
+
+
+</body>
+</html>

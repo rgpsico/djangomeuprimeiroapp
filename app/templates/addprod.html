@@ -1,0 +1,17 @@
+    {%  include 'includes/navi.html'%}
+    {%  include 'includes/_alertas.html'%}
+    <div class="container">
+        <h1>Cadastrar Produtos</h1>
+    <form action="{% url 'insertprod' %}" method="POST">
+
+         {% csrf_token %}
+
+        Nome:<input type="text"  class="form-control" name="name" value="{{ request.POST.item }}"><br/>
+        Preco:<input type="text"  class="form-control" name="price" value="{{ request.POST.valor }}"><br/>
+        Imagem url:<input type="text"  class="form-control" name="image" ><br/>
+        <input type="submit" value="enviar">
+     </form>
+    </div>
+    </div>
+</body>
+</html>

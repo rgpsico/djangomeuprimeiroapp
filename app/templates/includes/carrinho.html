@@ -1,0 +1,37 @@
+{% load mathfilters%}
+<div style="clear:both"></div>
+<br>
+<h3>Meu Carrinho</h3>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <tr>
+            <th>Item name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+            <th>Action</th>
+        </tr>
+
+    {% for pedi in pedido %}
+
+        <tr>
+            <td>{{  pedi.item}}</td>
+
+            <td>{{  pedi.valor}}</td>
+            <td>{{ pedi.valor|mul:pedi.quantidade }}</td>
+            <td><a href="/DelCart/{{ pedi.id}}" class="btn btn-danger">Delete</a></td>
+        </tr>
+    {% endfor %}
+        <tr>
+        <td colspan="3">Total</td>
+        <td colspan="3">{{ total.total }}</td>
+        </tr>
+        <tr>
+        <td colspan="3">Pagar</td>
+
+        <td colspan="3">
+            <button type="submit" class="btn btn-info"><a href="/checkout/">Check-out</a></button></td>
+        </tr>
+
+
+    </table>
